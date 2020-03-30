@@ -1,0 +1,9 @@
+C:\Users\ADMIN\source\repos\4pics\4pics\bin\Debug\4pics.exe.config
+C:\Users\ADMIN\source\repos\4pics\4pics\bin\Debug\4pics.exe
+C:\Users\ADMIN\source\repos\4pics\4pics\bin\Debug\4pics.pdb
+C:\Users\ADMIN\source\repos\4pics\4pics\obj\Debug\4pics.csprojAssemblyReference.cache
+C:\Users\ADMIN\source\repos\4pics\4pics\obj\Debug\_4pics.Form1.resources
+C:\Users\ADMIN\source\repos\4pics\4pics\obj\Debug\_4pics.Properties.Resources.resources
+C:\Users\ADMIN\source\repos\4pics\4pics\obj\Debug\4pics.csproj.GenerateResource.cache
+C:\Users\ADMIN\source\repos\4pics\4pics\obj\Debug\4pics.exe
+C:\Users\ADMIN\source\repos\4pics\4pics\obj\Debug\4pics.pdb

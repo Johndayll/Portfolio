@@ -1,0 +1,6 @@
+﻿  ProblemSet1(prototype).cpp
+C:\Users\ADMIN\Documents\Le Programs\C++\ProblemSet1(prototype)\ProblemSet1(prototype)\ProblemSet1(prototype).cpp(10,8): warning C4101: 'timeIn': unreferenced local variable
+C:\Users\ADMIN\Documents\Le Programs\C++\ProblemSet1(prototype)\ProblemSet1(prototype)\ProblemSet1(prototype).cpp(10,25): warning C4101: 'hourSpent': unreferenced local variable
+C:\Users\ADMIN\Documents\Le Programs\C++\ProblemSet1(prototype)\ProblemSet1(prototype)\ProblemSet1(prototype).cpp(10,36): warning C4101: 'minuteSpent': unreferenced local variable
+C:\Users\ADMIN\Documents\Le Programs\C++\ProblemSet1(prototype)\ProblemSet1(prototype)\ProblemSet1(prototype).cpp(10,16): warning C4101: 'timeOut': unreferenced local variable
+  ProblemSet1(prototype).vcxproj -> C:\Users\ADMIN\Documents\Le Programs\C++\ProblemSet1(prototype)\Debug\ProblemSet1(prototype).exe
