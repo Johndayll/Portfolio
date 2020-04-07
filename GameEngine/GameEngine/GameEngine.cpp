@@ -35,7 +35,7 @@ class GameBoard {
 public:
 	virtual void print_board() = 0;
 	virtual int check_winner() = 0;
-	virtual void take_turn(GameMove*) = 0;
+	virtual void take_turn(GameMove&) = 0;
 };
 
 class ConnectBoard : public GameBoard {
@@ -53,8 +53,13 @@ public:
 		return (connect4_board[c][0] != 0);		
 	}
 
-	bool fullBoard(vector<vector<int>> board) {
-		
+	bool fullBoard() {
+		for (int i = 0; i < columns; i++) {
+			if (connect4_board[i][0] == 0) {
+				return false;
+			}
+		}
+		return true;
 	}
 	void print_board() {
 		for (int i = 0; i < rows; i++) {
@@ -83,20 +88,23 @@ public:
 			diagUp(connect4_board, 2) || diagDown(connect4_board, 2)) {
 			return 2;
 		}
+		else if (fullBoard()) {
+			return 3;
+		}
 		else return 0;
 	}
-	void take_turn(ConnectMove* m) {
-		if (!isfullcol(m->c())) {
+	void take_turn(ConnectMove& m) {
+		if (!isfullcol(m.c())) {
 			int last_empty = 0;
-			while ((last_empty < rows) && (connect4_board[m->c()][last_empty] == 0)) {
+			while ((last_empty < rows) && (connect4_board[m.c()][last_empty] == 0)) {
 				last_empty++;
 			}
 			last_empty--;
-			connect4_board[m->c()][last_empty] = m->p();
+			connect4_board[m.c()][last_empty] = m.p();
 		}
 	}
-	void take_turn(GameMove* m) {
-		take_turn((ConnectMove*)m);
+	void take_turn(GameMove& m) {
+		take_turn((ConnectMove&)m);
 	}
 
 	bool horizontal(const vector<vector<int>>& board, int p) {
@@ -184,18 +192,67 @@ public:
 
 	}
 	void print_board() {
+		int counter = 0;
+		//print column guide//
+		for (int c = 0; c < columns; c++) {
+			if (c <= 0) {
+				cout << "       C ";
+			}
+			else if (c <= 1) {
+				cout << " O ";
+			}
+			else if (c <= 2) {
+				cout << " L ";
+			}
+			else if (c <= 3) {
+				cout << " U ";
+			}
+			else if (c <= 4) {
+				cout << " M ";
+			}
+			else if (c <= 5) {
+				cout << " N ";
+			}
+		}
+		cout << endl;
+		cout << "   ";
+		for (int c = 0; c < columns; c++) {
+			cout << " " << c + 1 << " ";
+		}
+		cout << endl;
 		for (int i = 0; i < rows; i++) {
+			if (i >= ((rows - 4) / 2) && counter == 0)/*print row guide*/ {
+				cout << "R"; 
+			}
+			if (i >= ((rows - 4) / 2) && counter == 1) {
+				cout << "O"; 
+			}
+			if (i >= ((rows - 4) / 2) && counter == 2) {
+				cout << "W"; 
+			}
+			if (i >= ((rows - 4) / 2) && counter == 3) {
+				cout << "S"; 
+			}
+
+			if (i >= ((rows - 4) / 2) && counter < 4) {
+				cout << " " << i + 1;
+			}
+			else {
+				cout << "  " << i + 1;
+			}			
 			for (int j = 0; j < columns; j++) {
+
 				if (reversiBoard[j][i] == 1) {
 					cout << " W ";
+
 				}
 				else if (reversiBoard[j][i] == 2) {
 					cout << " B ";
 				}
 				else cout << " . ";
 			}
-
 			cout << endl;
+			if (i >= ((rows - 4) / 2) && counter < 4) counter++;
 		}
 	}
 	int check_winner() {
@@ -216,10 +273,10 @@ public:
 		else if (p2 > p1) return 2;
 		else return 0;
 	}
-	void up(vector<vector<int>>& board, ReversiMove* m) {
+	void up(vector<vector<int>>& board, ReversiMove& m) {
 		int i = 0;
-		int column = m->c();
-		int row = m->r();
+		int column = m.c();
+		int row = m.r();
 		int player = 3 - board[column][row];
 		for (i = row - 1; (i >= 0) && (board[column][i] == player); i--) {}
 		if ((i >= 0) && (board[column][i] == board[column][row])) {
@@ -229,10 +286,10 @@ public:
 		}
 	}
 
-	void down(vector<vector<int>>& board, ReversiMove* m) {
+	void down(vector<vector<int>>& board, ReversiMove& m) {
 		int i = 0;
-		int column = m->c();
-		int row = m->r();
+		int column = m.c();
+		int row = m.r();
 		int player = 3 - board[column][row];
 		for (i = row + 1; (i < 8) && (board[column][i] == player); i++) {}
 		if ((i < 8) && (board[column][i] == board[column][row])) {
@@ -241,10 +298,10 @@ public:
 			}
 		}
 	}
-	void left(vector<vector<int>>& board, ReversiMove* m) {
+	void left(vector<vector<int>>& board, ReversiMove& m) {
 		int i = 0;
-		int column = m->c();
-		int row = m->r();
+		int column = m.c();
+		int row = m.r();
 		int player = 3 - board[column][row];
 		for (i = column - 1; (i >= 0) && (board[i][row] == player); i--) {}
 		if ((i >= 0) && (board[i][row] == board[column][row])) {
@@ -253,10 +310,10 @@ public:
 			}
 		}
 	}
-	void right(vector<vector<int>>& board, ReversiMove* m) {
+	void right(vector<vector<int>>& board, ReversiMove& m) {
 		int i = 0;
-		int column = m->c();
-		int row = m->r();
+		int column = m.c();
+		int row = m.r();
 		int player = 3 - board[column][row];
 		for (i = column + 1; (i < 8) && (board[i][row] == player); i++) {}
 		if ((i < 8) && (board[i][row] == board[column][row])) {
@@ -265,10 +322,10 @@ public:
 			}
 		}
 	}
-	void diagdl(vector<vector<int>>& board, ReversiMove* m) {
+	void diagdl(vector<vector<int>>& board, ReversiMove& m) {
 		int i = 0, j = 0;
-		int column = m->c();
-		int row = m->r();
+		int column = m.c();
+		int row = m.r();
 		int player = 3 - board[column][row];
 		for (i = column - 1, j = row + 1; (i >= 0 && j < 8) && (board[i][j] == player); i--, j++) {}
 		if (((i >= 0 && j < 8) && (board[i][j]) == board[column][row])) {
@@ -277,10 +334,10 @@ public:
 			}
 		}	
 	}
-	void diagdr(vector<vector<int>>& board, ReversiMove* m) {
+	void diagdr(vector<vector<int>>& board, ReversiMove& m) {
 		int i = 0, j = 0;
-		int column = m->c();
-		int row = m->r();
+		int column = m.c();
+		int row = m.r();
 		int player = 3 - board[column][row];
 		for (i = column + 1, j = row + 1; (i < 8 && j < 8) && (board[i][j] == player); i++, j++) {}
 		if (((i < 8 && j < 8) && (board[i][j]) == board[column][row])) {
@@ -289,10 +346,10 @@ public:
 			}
 		}
 	}
-	void diagul(vector<vector<int>>& board, ReversiMove* m) {
+	void diagul(vector<vector<int>>& board, ReversiMove& m) {
 		int i = 0, j = 0;
-		int column = m->c();
-		int row = m->r();
+		int column = m.c();
+		int row = m.r();
 		int player = 3 - board[column][row];
 		for (i = column - 1, j = row - 1; (i >= 0 && j >= 0) && (board[i][j] == player); i--, j--) {}
 		if (((i >= 0 && j >= 0) && (board[i][j]) == board[column][row])) {
@@ -301,10 +358,10 @@ public:
 			}
 		}
 	}
-	void diagur(vector<vector<int>>& board, ReversiMove* m) {
+	void diagur(vector<vector<int>>& board, ReversiMove& m) {
 		int i = 0, j = 0;
-		int column = m->c();
-		int row = m->r();
+		int column = m.c();
+		int row = m.r();
 		int player = 3 - board[column][row];
 		for (i = column + 1, j = row - 1; (i < 8 && j >= 0) && (board[i][j] == player); i++, j--) {}
 		if (((i < 8 && j >= 0) && (board[i][j]) == board[column][row])) {
@@ -313,10 +370,10 @@ public:
 			}
 		}
 	}
-	void take_turn(ReversiMove* m) {
+	void take_turn(ReversiMove& m) {
 		int last_empty = 0;
-		if (reversiBoard[m->c()][m->r()] == 0) {
-			reversiBoard[m->c()][m->r()] = m->p();
+		if (reversiBoard[m.c()][m.r()] == 0) {
+			reversiBoard[m.c()][m.r()] = m.p();
 		}
 		up(reversiBoard, m);
 		down(reversiBoard, m);
@@ -327,8 +384,8 @@ public:
 		diagul(reversiBoard, m);
 		diagur(reversiBoard, m);
 	}
-	void take_turn(GameMove* m) {
-		take_turn((ReversiMove*)m);
+	void take_turn(GameMove& m) {
+		take_turn((ReversiMove&)m);
 	}
 
 	
@@ -346,9 +403,10 @@ public:
 };
 
 class Game{
+
 private:
 	GameBoard& board;
-	GameMove* turn;
+	GameMove& turn;
 	int playerturn;
 	int numturns;
 protected:
@@ -357,15 +415,15 @@ protected:
 	}
 
 	void declare_winner() {
-		if (check_winner() == 1) cout << "Player 1 wins!!!\n";
-
-		else cout << "Player 2 wins!!!\n";
-
+		if (check_winner() == 1) cout << "  ==================\n   Player 1 wins!!\n  ==================\n";
+		else if (check_winner() == 3) cout << "  ==================\n   Full board!!\n  ==================\n";
+		else cout << "  ==================\n   Player 2 wins!!\n  ==================\n";
+		board.print_board();
 	}
 
 	void take_turn() {
 		board.print_board();
-		turn->ask_move(playerturn);
+		turn.ask_move(playerturn);
 		board.take_turn(turn);
 		system("CLS");
 	}
@@ -387,8 +445,7 @@ public:
 		declare_winner();
 	}
 public:
-	Game(GameBoard& b, GameMove& m) : board(b) {
-		turn = &m;
+	Game(GameBoard& b, GameMove& m) : board(b) , turn(m) {
 	}
 };
 
