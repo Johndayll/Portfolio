@@ -1,6 +1,0 @@
-C:\Users\ADMIN\source\repos\Interest rate\Interest rate\bin\Debug\Interest rate.exe.config
-C:\Users\ADMIN\source\repos\Interest rate\Interest rate\bin\Debug\Interest rate.exe
-C:\Users\ADMIN\source\repos\Interest rate\Interest rate\bin\Debug\Interest rate.pdb
-C:\Users\ADMIN\source\repos\Interest rate\Interest rate\obj\Debug\Interest rate.exe
-C:\Users\ADMIN\source\repos\Interest rate\Interest rate\obj\Debug\Interest rate.pdb
-C:\Users\ADMIN\source\repos\Interest rate\Interest rate\obj\Debug\Interest rate.csprojAssemblyReference.cache
