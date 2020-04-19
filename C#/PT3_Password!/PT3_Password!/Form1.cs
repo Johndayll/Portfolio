@@ -16,7 +16,14 @@ namespace PT3_Password_
         {
             InitializeComponent();
         }
-        private void bunifuTextBox1_TextChanged(object sender, EventArgs e)
+
+
+        private void bunifuButton1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void PassWordBox_TextChange(object sender, EventArgs e)
         {
             if (PassWordBox.Text.Length > 0)
             {
@@ -37,19 +44,17 @@ namespace PT3_Password_
                     Length.Text = "❌";
                 }
                 //Second Condition
-                if (length)
+                if (char.IsUpper(firstChar) && char.IsLower(lastChar))
                 {
-                    if (char.IsUpper(firstChar) && char.IsLower(lastChar)) 
-                    {
-                        character = true;
-                        Character.Text = "✔️";
-                    }
-                    else
-                    {
-                        character = false;
-                        Character.Text = "❌";
-                    }
+                    character = true;
+                    Character.Text = "✔️";
                 }
+                else
+                {
+                    character = false;
+                    Character.Text = "❌";
+                }
+                
                 //Third Condition
                 if (password.Length > 2)
                 {
@@ -89,11 +94,9 @@ namespace PT3_Password_
                         break;
                     }
                 }
-           
-
 
                 //Final Condition
-                if(restriction && character && digit && length)
+                if (restriction && character && digit && length)
                 {
                     Validity.Text = "Valid!";
                     Validity.ForeColor = Color.Green;
@@ -104,7 +107,6 @@ namespace PT3_Password_
                     Validity.Text = "Invalid!";
                     Validity.ForeColor = Color.Red;
                 }
-
             }
             else
             {
@@ -113,20 +115,6 @@ namespace PT3_Password_
                 Character.Text = "❌";
                 Length.Text = "❌";
             }
-        }
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void PassWordBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void bunifuButton1_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
     }
 }

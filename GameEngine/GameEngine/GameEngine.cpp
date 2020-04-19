@@ -388,8 +388,6 @@ public:
 		take_turn((ReversiMove&)m);
 	}
 
-	
-
 	bool fullboard(const vector<vector<int>>& board) {
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < columns; j++) {

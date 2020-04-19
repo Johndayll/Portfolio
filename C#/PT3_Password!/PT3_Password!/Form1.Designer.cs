@@ -259,8 +259,7 @@
             this.PassWordBox.TextPlaceholder = "Enter text";
             this.PassWordBox.UseSystemPasswordChar = false;
             this.PassWordBox.WordWrap = true;
-            this.PassWordBox.TextChange += new System.EventHandler(this.bunifuTextBox1_TextChanged);
-            this.PassWordBox.TextChanged += new System.EventHandler(this.PassWordBox_TextChanged);
+            this.PassWordBox.TextChange += new System.EventHandler(this.PassWordBox_TextChange);
             // 
             // bunifuButton1
             // 
@@ -354,7 +353,6 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Isabelle\'s Password Checker";
-            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
